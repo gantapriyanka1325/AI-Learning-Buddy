@@ -1,14 +1,9 @@
 import streamlit as st
-from groq import Groq
+import requests
 
-st.set_page_config(
-    page_title="AI Learning Buddy Maya",
-    page_icon="🎓"
-)
+st.set_page_config(page_title="AI Learning Buddy Maya", page_icon="🎓")
 
-client = Groq(
-    api_key=st.secrets["GROQ_API_KEY"]
-)
+API_KEY = st.secrets["OPENROUTER_API_KEY"]
 
 st.title("🎓 AI Learning Buddy Maya")
 
@@ -43,19 +38,30 @@ if st.button("Generate"):
         else:
             prompt = topic
 
-        try:
-            response = client.chat.completions.create(
-                model="llama-3.3-70b-versatile",
-                messages=[
-                    {
-                        "role": "user",
-                        "content": prompt
-                    }
-                ]
-            )
+        headers = {
+            "Authorization": f"Bearer {API_KEY}",
+            "Content-Type": "application/json",
+        }
 
+        data = {
+            "model": "meta-llama/llama-3.1-8b-instruct:free",
+            "messages": [
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ]
+        }
+
+        response = requests.post(
+            "https://openrouter.ai/api/v1/chat/completions",
+            headers=headers,
+            json=data
+        )
+
+        if response.status_code == 200:
+            answer = response.json()["choices"][0]["message"]["content"]
             st.success("Generated Successfully ✅")
-            st.write(response.choices[0].message.content)
-
-        except Exception as e:
-            st.error(f"Error: {e}")
+            st.write(answer)
+        else:
+            st.error(response.text)
