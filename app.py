@@ -44,7 +44,7 @@ if st.button("Generate"):
         }
 
         data = {
-            "model": "meta-llama/llama-3.1-8b-instruct:free",
+            "model": "meta-llama/llama-3.1-8b-instruct",
             "messages": [
                 {
                     "role": "user",
