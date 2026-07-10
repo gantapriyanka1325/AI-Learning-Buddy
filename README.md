@@ -20,3 +20,10 @@ Meta Llama 3.1 8B Instruct
 GitHub
 Google Colab
 VS Code
+
+
+Streamlit App Link 
+https://ai-learning-buddy-b7sfy3gvfp5vd8ybgrequl.streamlit.app/
+
+Google colab notebook 
+https://colab.research.google.com/drive/1bfCuwpNNq-hmoKOTf5uiQAx5VP6rutdR#scrollTo=0RW8hAQFmVgC 
